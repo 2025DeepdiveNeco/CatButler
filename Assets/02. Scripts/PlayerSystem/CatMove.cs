@@ -10,8 +10,8 @@ public class CatMove : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    [Header("Aim")]
-    public bool lookAtMouse = true;
+    //[Header("Aim")]
+    //public bool lookAtMouse = true;
 
     void Awake()
     {
@@ -31,39 +31,39 @@ public class CatMove : MonoBehaviour
         rb.MovePosition(rb.position + dir * moveSpeed * Time.fixedDeltaTime);
 
         // 회전
-        if (lookAtMouse)
-        {
-            RotateToMouse();
-        }
-        else
-        {
-            RotateToMoveDirection(dir);
-        }
+        //if (lookAtMouse)
+        //{
+        //    RotateToMouse();
+        //}
+        //else
+        //{
+        //    RotateToMoveDirection(dir);
+        //}
     }
 
-    void RotateToMouse()
-    {
-        if (Camera.main == null) return;
-        if (Mouse.current == null) return;
+    //void RotateToMouse()
+    //{
+    //    if (Camera.main == null) return;
+    //    if (Mouse.current == null) return;
 
-        Vector3 mouseScreen = Mouse.current.position.ReadValue();
-        Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
-        mouseWorld.z = transform.position.z;
+    //    Vector3 mouseScreen = Mouse.current.position.ReadValue();
+    //    Vector3 mouseWorld = Camera.main.ScreenToWorldPoint(mouseScreen);
+    //    mouseWorld.z = transform.position.z;
 
-        Vector2 dir = (mouseWorld - transform.position);
-        if (dir.sqrMagnitude <= 0.0001f) return;
+    //    Vector2 dir = (mouseWorld - transform.position);
+    //    if (dir.sqrMagnitude <= 0.0001f) return;
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        // 스프라이트가 위(Up)을 보고 있다면 -90 보정, 오른쪽(Right)이라면 빼지 말기
+    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg -180f;
+    //    // 스프라이트가 위(Up)을 보고 있다면 -90 보정, 오른쪽(Right)이라면 빼지 말기
 
-        rb.rotation = angle;
-    }
+    //    rb.rotation = angle;
+    //}
 
-    void RotateToMoveDirection(Vector2 dir)
-    {
-        if (dir.sqrMagnitude <= 0.0001f) return;
+    //void RotateToMoveDirection(Vector2 dir)
+    //{
+    //    if (dir.sqrMagnitude <= 0.0001f) return;
 
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
-    }
+    //    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
+    //    rb.rotation = angle;
+    //}
 }
