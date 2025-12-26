@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 666cf7104ccd8154bad14d9ab8f58579
+guid: 4ac54bd7d4b46f947940499f17aad459
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7896794456334986345
-    second: dore_0
+      213: -9051692800306759852
+    second: window_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dore_0
+      name: window_0
       rect:
         serializedVersion: 2
-        x: 410
-        y: 13
-        width: 88
-        height: 505
-      alignment: 9
-      pivot: {x: 0.50415736, y: 0.9710904}
+        x: 388
+        y: 435
+        width: 370
+        height: 46
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79311ede743f86290800000000000000
-      internalID: -7896794456334986345
+      spriteID: 45731c52b5de16280800000000000000
+      internalID: -9051692800306759852
       vertices: []
       indices: 
       edges: []
@@ -125,8 +125,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 99299ebcdd8126d43b6d33485e524296
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dore_0: -7896794456334986345
+      window_0: -9051692800306759852
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

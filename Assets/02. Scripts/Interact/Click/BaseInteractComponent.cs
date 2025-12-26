@@ -51,10 +51,13 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     {
         var objectData = DataTableManager.Instance.GetObjectData(objectID);
 
-        maxDurability = objectData.MaxDurability;
-        triggerType = (ScoreTriggerType)objectData.ScoreTriggerType;
-        score = objectData.ScoreValue;
-        breakLevels = objectData.BreakLevels;
+        if (objectData != null)
+        {
+            maxDurability = objectData.MaxDurability;
+            triggerType = (ScoreTriggerType)objectData.ScoreTriggerType;
+            score = objectData.ScoreValue;
+            breakLevels = objectData.BreakLevels;
+        }
     }
 
     protected virtual bool EnterInteract()
