@@ -1,8 +1,8 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 
 public class MouseInteractSystem : MonoBehaviour
 {
-    [Header("RayCast ±∏ ≈©±‚")]
+    [Header("RayCast Íµ¨ ÌÅ¨Í∏∞")]
     [Range(0, 10)]
     [SerializeField] float interactRadius = 3f;
 

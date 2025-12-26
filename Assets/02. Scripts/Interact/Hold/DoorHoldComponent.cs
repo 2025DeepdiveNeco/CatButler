@@ -11,17 +11,9 @@ public class DoorHoldComponent : BaseHoldComponent
 
     bool opened = false;
 
-    private void Start()
-    {
-        player = GameObject.FindWithTag("Player").transform;
-    }
-
     protected override void OnHoldStart()
     {
         base.OnHoldStart();
-
-        if (Vector2.Distance(player.position, transform.position) > maxDistance)
-            return;
 
         startDir = (player.position - transform.position).normalized;
         accumulatedAngle = 0f;
@@ -56,7 +48,6 @@ public class DoorHoldComponent : BaseHoldComponent
     void OpenDoor()
     {
         opened = true;
-        Debug.Log("¹® ¿­¸²!");
         Release();
     }
 
