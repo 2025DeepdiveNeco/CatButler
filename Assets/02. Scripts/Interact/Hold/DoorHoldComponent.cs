@@ -48,6 +48,7 @@ public class DoorHoldComponent : BaseHoldComponent
     void OpenDoor()
     {
         opened = true;
+        AudioManager.Instance.PlaySFX(SFX.door);
         Release();
     }
 
