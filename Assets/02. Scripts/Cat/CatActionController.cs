@@ -57,7 +57,7 @@ public class CatActionController : MonoBehaviour
             comboStep = 0;
         }
 
-        if (Keyboard.current.jKey.wasPressedThisFrame) // J키가 공격
+        if (Mouse.current.rightButton.wasPressedThisFrame) // 좌클 공격
         {
             lastAttackTime = Time.time;
 
