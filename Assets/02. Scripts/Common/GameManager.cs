@@ -20,10 +20,12 @@ public class GameManager : SingletonBehaviour<GameManager>
     private int currentScore = 0;
     private bool isGameOver = false;
 
-    private void Awake()
+    protected override void Init()
     {
         isDestroyOnLoad = true;
+        base.Init();
     }
+
     void Start()
     {
         currentTime = totalTime;
@@ -77,12 +79,10 @@ public class GameManager : SingletonBehaviour<GameManager>
 
         currentScore += amount;
         scoreGauge.value = currentScore; // 게이지에 즉시 반영
-
-        
     }
 
     // 게임 종료 판정
-    void CheckGameOver()
+    public void CheckGameOver()
     {
         isGameOver = true;
         Time.timeScale = 0f; // 게임 일시정지

@@ -5,7 +5,7 @@ public class TitleScene : MonoBehaviour
 {
     public void OnClickStartButton()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(2);
     }
     public void GameExit()
     {

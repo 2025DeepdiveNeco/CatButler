@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using static Define;
 
-public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
+public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 {
     [Header("Object Setting")]
     ScoreTriggerType triggerType = ScoreTriggerType.None;
@@ -14,31 +14,39 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     [SerializeField] Image durabilityGauge;
 
     [Header("Component")]
-    Animator animator;
+    protected Animator animator;
 
     [Header("Value")]
     int maxDurability;
-    int durability;
+    protected int durability;
     int breakLevels;
     int score;
     bool interactEnd;
+    bool canTouch;
 
     [Header("Damp")]
     [SerializeField] float amplitude = 0.3f;   // Èçµé¸² Å©±â
     [SerializeField] float frequency = 20f;    // Èçµé¸² ¼Óµµ
     [SerializeField] float damping = 5f;       // °¨¼è ¼Óµµ
     [SerializeField] float duration = 0.5f;    // Èçµé¸®´Â ½Ã°£
+    protected bool isDamping;
 
+    [Header("Destroy")]
+    [SerializeField] protected float destroyDelayTime = 0.5f;
+
+    [Header("Property")]
     public ScoreTriggerType TriggerType => triggerType;
     public int Durability => durability;
-
     public bool Interacting { get; private set; }
+    public bool Touchable() => canTouch = true;
+    public bool UnTouchable() => canTouch = false;
 
+    const string EFFECT_OB_PATH = "Effect/ObjectEffect";
     public event Action OnInteractEnd;
 
     protected virtual void Awake()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         SetObjectStat();
 
         durability = maxDurability;
@@ -49,6 +57,8 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
     void SetObjectStat()
     {
+        if (DataTableManager.Instance.GetObjectData(objectID) == null)
+            return;
         var objectData = DataTableManager.Instance.GetObjectData(objectID);
 
         maxDurability = objectData.MaxDurability;
@@ -75,6 +85,9 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
     public virtual void Interact()
     {
+        if (!canTouch)
+            return;
+
         if (EnterInteract())
             return;
 
@@ -90,7 +103,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
         ReduceDurability(damage);
     }
 
-    void ReduceDurability(int value)
+    protected virtual void ReduceDurability(int value)
     {
         durability -= value;
 
@@ -107,12 +120,14 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
         if (triggerType == ScoreTriggerType.OnHit)
             GameManager.Instance.AddScore(score);
-        else if(triggerType == ScoreTriggerType.OnDestroy && durability <= 0)
+        else if (triggerType == ScoreTriggerType.OnDestroy && durability <= 0)
             GameManager.Instance.AddScore(score);
     }
 
     System.Collections.IEnumerator Damping()
     {
+        isDamping = true;
+
         float t = 0f;
 
         while (t < duration)
@@ -126,9 +141,13 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
             yield return null;
         }
 
-        //if(durability > 0)
-        //    transform.localPosition = Vector3.zero;
+        transform.localPosition = Vector3.zero;
+        isDamping = false;
 
         ExitInteract();
     }
+
+    protected void GameObjectDestroy() => Destroy(gameObject);
+
+    protected void OnEffect() => Instantiate(Resources.Load<GameObject>(EFFECT_OB_PATH), transform);
 }

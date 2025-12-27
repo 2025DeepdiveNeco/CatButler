@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,14 @@ public class CatMove : MonoBehaviour
     private bool isGrounded = true;      // �ٴ� ���� Ȯ��
     private Vector3 visualOriginalPos;    // �̹����� ó�� ���� ��ġ
 
+    [Header("Water Step")]
+    [SerializeField] float waterStepOffSetDistance = 5f;
+    bool isWaterStep;
+    bool onWaterStep;
+    Vector2 startWaterStep;
+
+    public void OnWaterStep() => onWaterStep = true;
+
     void Awake()
     {
         // ������Ʈ �������� �� �ʱ�ȭ
@@ -37,6 +46,9 @@ public class CatMove : MonoBehaviour
             if (playerVisualSr == null)
                 playerVisualSr = visualTransform.GetComponent<SpriteRenderer>();
         }
+
+        startWaterStep = transform.position;
+
     }
 
     void Update()
@@ -55,6 +67,24 @@ public class CatMove : MonoBehaviour
             {
                 playerVisualSr.sortingOrder = defaultSortingOrder + 1;
             }
+        }
+
+        if(onWaterStep && isGrounded && !isWaterStep)
+        {
+            isWaterStep = true;
+            WaterStep();
+        }
+    }
+
+    void WaterStep()
+    {
+        // TODO : Water Steop
+        if (waterStepOffSetDistance 
+            <= (startWaterStep - (Vector2)transform.position).magnitude)
+        {
+            startWaterStep = transform.position;
+            Instantiate(Resources.Load<GameObject>("Effect/ObjectEffect"), transform.position, Quaternion.identity);
+            isWaterStep = false;
         }
     }
 

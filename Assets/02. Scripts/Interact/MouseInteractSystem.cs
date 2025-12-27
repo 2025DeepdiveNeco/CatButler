@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using static UnityEngine.UI.Image;
-using UnityEngine.Rendering;
 
 public class MouseInteractSystem : MonoBehaviour
 {
@@ -17,8 +15,6 @@ public class MouseInteractSystem : MonoBehaviour
 
     void Update()
     {
-        FindInteractable();
-
         if (Input.GetMouseButtonDown(0))
             TryInteract();
 
@@ -35,29 +31,13 @@ public class MouseInteractSystem : MonoBehaviour
         }
     }
 
-    void FindInteractable()
-    {
-        int hitCount = Physics.OverlapSphereNonAlloc(
-            transform.position,
-            interactRadius,
-            buffer,
-            interactableLayer
-        );
-
-        for(int i = 0; i < hitCount; i++)
-        {
-            Debug.Log(buffer[i].name);
-            buffer[i].GetComponent<Renderer>().material.SetFloat("_Thickness", 0.002f);
-        }
-    }
-
     void TryInteract()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        var dis = mousePos - (Vector2)transform.position;
-        if (dis.magnitude > interactRadius)
-            return;
+        //var dis = mousePos - (Vector2)transform.position;
+        //if (dis.magnitude > interactRadius)
+        //    return;
 
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f, interactableLayer);
         if (hit.collider != null)

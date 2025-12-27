@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MugCupComponent : BaseInteractComponent
+public class CupComponent : BaseInteractComponent
 {
     public float pushDistance = 2f;
     public float pushSpeed = 5f;
@@ -21,7 +21,13 @@ public class MugCupComponent : BaseInteractComponent
         OnInteractEnd -= StartPush;
     }
 
-    void StartPush() => StartCoroutine(Push());
+    void StartPush()
+    {
+
+        StopAllCoroutines();
+        StartCoroutine(Push());
+    }
+
     System.Collections.IEnumerator Push()
     {
         Vector2 start = transform.position;
@@ -36,5 +42,12 @@ public class MugCupComponent : BaseInteractComponent
             transform.position = Vector2.Lerp(start, end, t);
             yield return null;
         }
+
+        transform.position = end;
+        animator.SetTrigger("broken");
+        OnEffect();
+
+        yield return new WaitForSeconds(destroyDelayTime);
+        GameObjectDestroy();
     }
 }
