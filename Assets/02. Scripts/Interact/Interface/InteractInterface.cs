@@ -12,6 +12,8 @@ public interface IHoldable
 {
     bool Holding { get; }
     void Hold();
+    void HoldUpdate();
+    void Release();
 
     event Action OnHoldEnd;
 }

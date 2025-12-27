@@ -1,9 +1,8 @@
-using UnityEngine;
-
+ï»¿using UnityEngine;
 
 public class MouseInteractSystem : MonoBehaviour
 {
-    [Header("RayCast ±¸ Å©±â")]
+    [Header("RayCast êµ¬ í¬ê¸°")]
     [Range(0, 10)]
     [SerializeField] float interactRadius = 3f;
 
@@ -11,38 +10,48 @@ public class MouseInteractSystem : MonoBehaviour
     [SerializeField] LayerMask interactableLayer;
     [SerializeField] LayerMask HoldLayer;
 
+    IHoldable currentHold;
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
-        {
             TryInteract();
+
+        if (Input.GetMouseButton(0) && currentHold != null)
+            currentHold.HoldUpdate();
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (currentHold != null)
+            {
+                currentHold.Release();
+                currentHold = null;
+            }
         }
     }
-    public void TryInteract()
+
+    void TryInteract()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        var dis = mousePos - new Vector2(transform.position.x, transform.position.y);
-
+        var dis = mousePos - (Vector2)transform.position;
         if (dis.magnitude > interactRadius)
             return;
 
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0f, interactableLayer);
-        RaycastHit2D hitHold = Physics2D.Raycast(mousePos, Vector2.zero, 0f, HoldLayer);
-
         if (hit.collider != null)
         {
             IInteractable currentTarget = hit.collider.GetComponent<IInteractable>();
-
-            currentTarget.Interact();
             // CurrentState = InteractionState.Interacting;
             //CurrentTarget.OnInteractionEnded += HandleInteractionEnded;
+            currentTarget?.Interact();
         }
 
+        RaycastHit2D hitHold = Physics2D.Raycast(mousePos, Vector2.zero, 0f, HoldLayer);
         if (hitHold.collider != null)
         {
-
+            currentHold = hitHold.collider.GetComponent<IHoldable>();
+            currentHold.Hold();
         }
     }
 
