@@ -43,7 +43,7 @@ public class MouseInteractSystem : MonoBehaviour
         if (hit.collider != null)
         {
             IInteractable currentTarget = hit.collider.GetComponent<IInteractable>();
-            currentTarget?.Interact();
+            currentTarget?.Interact(transform);
         }
 
         RaycastHit2D hitHold = Physics2D.Raycast(mousePos, Vector2.zero, 0f, HoldLayer);

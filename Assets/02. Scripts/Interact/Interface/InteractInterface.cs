@@ -4,7 +4,7 @@ using UnityEngine;
 public interface IInteractable : ITouchable
 {
     bool Interacting { get; }
-    void Interact();
+    void Interact(Transform ts);
 
     event Action OnInteractEnd;
 }
