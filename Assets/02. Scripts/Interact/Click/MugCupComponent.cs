@@ -30,7 +30,6 @@ public class MugCupComponent : BaseInteractComponent
 
     System.Collections.IEnumerator Push()
     {
-
         Vector2 start = transform.position;
 
         Vector2 dir = ((Vector2)transform.position - (Vector2)player.transform.position).normalized;
@@ -46,5 +45,9 @@ public class MugCupComponent : BaseInteractComponent
 
         transform.position = end;
         animator.SetTrigger("broken");
+        OnEffect();
+
+        yield return new WaitForSeconds(destroyDelayTime);
+        GameObjectDestroy();
     }
 }

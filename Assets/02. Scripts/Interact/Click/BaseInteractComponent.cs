@@ -31,12 +31,17 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
     [SerializeField] float duration = 0.5f;    // 흔들리는 시간
     protected bool isDamping;
 
+    [Header("Destroy")]
+    [SerializeField] protected float destroyDelayTime = 0.5f;
+
+    [Header("Property")]
     public ScoreTriggerType TriggerType => triggerType;
     public int Durability => durability;
     public bool Interacting { get; private set; }
     public bool Touchable() => canTouch = true;
     public bool UnTouchable() => canTouch = false;
 
+    const string EFFECT_OB_PATH = "Effect/ObjectEffect";
     public event Action OnInteractEnd;
 
     protected virtual void Awake()
@@ -139,4 +144,8 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
         ExitInteract();
     }
+
+    protected void GameObjectDestroy() => Destroy(gameObject);
+
+    protected void OnEffect() => Instantiate(Resources.Load<GameObject>(EFFECT_OB_PATH), transform);
 }
