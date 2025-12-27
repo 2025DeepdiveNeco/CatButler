@@ -88,8 +88,7 @@ public class CatMove : MonoBehaviour
     private void StartJump()
     {
         isGrounded = false;
-        verticalVelocity = jumpForce;
-        Debug.Log("���� ����");
+        verticalVelocity = jumpForce;        
     }
 
     private void ApplyJumpPhysics()
@@ -105,8 +104,7 @@ public class CatMove : MonoBehaviour
         {
             currentHeight = 0;
             verticalVelocity = 0;
-            isGrounded = true;
-            Debug.Log("���� �Ϸ�");
+            isGrounded = true;            
         }
 
         // 4. �ڽ�(�̹���) ������Ʈ�� Y�� ��ġ�� �����Ͽ� ����
