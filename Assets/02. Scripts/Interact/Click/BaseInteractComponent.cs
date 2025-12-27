@@ -22,6 +22,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
     int breakLevels;
     int score;
     bool interactEnd;
+    bool canTouch;
 
     [Header("Damp")]
     [SerializeField] float amplitude = 0.3f;   // Èçµé¸² Å©±â
@@ -32,8 +33,9 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
     public ScoreTriggerType TriggerType => triggerType;
     public int Durability => durability;
-
     public bool Interacting { get; private set; }
+    public bool Touchable() => canTouch = true;
+    public bool UnTouchable() => canTouch = false;
 
     public event Action OnInteractEnd;
 
@@ -76,6 +78,9 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
     public virtual void Interact()
     {
+        if (!canTouch)
+            return;
+
         if (EnterInteract())
             return;
 

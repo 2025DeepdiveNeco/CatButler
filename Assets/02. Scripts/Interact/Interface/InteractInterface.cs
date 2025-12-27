@@ -1,6 +1,6 @@
 using System;
 
-public interface IInteractable
+public interface IInteractable : ITouchable
 {
     bool Interacting { get; }
     void Interact();
@@ -8,7 +8,7 @@ public interface IInteractable
     event Action OnInteractEnd;
 }
 
-public interface IHoldable
+public interface IHoldable : ITouchable
 {
     bool Holding { get; }
     void Hold();
@@ -17,6 +17,13 @@ public interface IHoldable
 
     event Action OnHoldEnd;
 }
+
+public interface ITouchable
+{
+    bool Touchable();
+    bool UnTouchable();
+}
+
 
 public interface IInteractInput { void TryInteract(); }
 public interface IInteractStay { void HoldInteract(); }

@@ -5,13 +5,21 @@ public class BaseHoldComponent : BaseInteract, IHoldable
 {
 
     bool holding;
+    bool canTouch;
 
     public bool Holding => holding;
+
+    public bool Touchable() => canTouch = true;
+
+    public bool UnTouchable() => canTouch = false;
 
     public event Action OnHoldEnd;
 
     public void Hold()
     {
+        if (!canTouch)
+            return;
+
         holding = true;
         OnHoldStart();
     }
