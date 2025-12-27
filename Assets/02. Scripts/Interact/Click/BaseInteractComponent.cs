@@ -1,18 +1,17 @@
 using System;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static Define;
 
 public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 {
-    [SerializeField] EnityType enityType = EnityType.None;
-    [SerializeField] ScoreTriggerType triggerType = ScoreTriggerType.None;
+    [Header("Object Setting")]
+    ScoreTriggerType triggerType = ScoreTriggerType.None;
     [SerializeField] int objectID;
     [SerializeField] int damage = 10;
 
-    [Header("Test")]
-    [SerializeField] TextMeshProUGUI maxD;
-    [SerializeField] TextMeshProUGUI curD;
+    [Header("Durability UI")]
+    [SerializeField] Image durabilityGauge;
 
     [Header("Component")]
     Animator animator;
@@ -22,8 +21,14 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     int durability;
     int breakLevels;
     int score;
+    bool interactEnd;
 
-    public EnityType Type => enityType;
+    [Header("Damp")]
+    [SerializeField] float amplitude = 0.3f;   // Èçµé¸² Å©±â
+    [SerializeField] float frequency = 20f;    // Èçµé¸² ¼Óµµ
+    [SerializeField] float damping = 5f;       // °¨¼è ¼Óµµ
+    [SerializeField] float duration = 0.5f;    // Èçµé¸®´Â ½Ã°£
+
     public ScoreTriggerType TriggerType => triggerType;
     public int Durability => durability;
 
@@ -38,14 +43,9 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
         durability = maxDurability;
 
-        maxD.text = $"maxD = {maxDurability.ToString()}";
-        curD.text = $"curD = {durability.ToString()}";
+        durabilityGauge.fillAmount = 1f;
     }
 
-    void Update()
-    {
-        curD.text = $"curD = {durability.ToString()}";
-    }
 
     void SetObjectStat()
     {
@@ -74,12 +74,14 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     protected virtual void ExitInteract()
     {
         Interacting = false;
-        EndInteract();
     }
 
     public virtual void Interact()
     {
         if (EnterInteract())
+            return;
+
+        if (interactEnd)
             return;
 
         OnInteract();
@@ -89,21 +91,45 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     {
         animator.SetTrigger("interact");
         ReduceDurability(damage);
-        GameManager.Instance.AddScore(score);
-    }
-
-    protected virtual void EndInteract()
-    {
-        OnInteractEnd?.Invoke();
-    }
-
-    public void Animation_InteractEnd()
-    {
-        ExitInteract();
     }
 
     void ReduceDurability(int value)
     {
         durability -= value;
+
+        StartCoroutine(Shake());
+
+        if (durability <= 0)
+        {
+            durabilityGauge.fillAmount = 0;
+            OnInteractEnd?.Invoke();
+            interactEnd = true;
+        }
+        else
+            durabilityGauge.fillAmount = (float)durability / (float)maxDurability;
+
+        if (triggerType == ScoreTriggerType.OnHit)
+            GameManager.Instance.AddScore(score);
+        else if(triggerType == ScoreTriggerType.OnDestroy && durability <= 0)
+            GameManager.Instance.AddScore(score);
+    }
+
+    System.Collections.IEnumerator Shake()
+    {
+        float t = 0f;
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+
+            float damper = Mathf.Exp(-damping * t);
+            float offset = Mathf.Sin(t * frequency) * amplitude * damper;
+
+            transform.localPosition = Vector3.zero + new Vector3(offset, 0, 0);
+            yield return null;
+        }
+
+        transform.localPosition = Vector3.zero;
+        ExitInteract();
     }
 }
