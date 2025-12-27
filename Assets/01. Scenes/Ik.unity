@@ -1465,6 +1465,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Size.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414900750965659506, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -6593073655978668242, guid: ca8d77266fda84445857e898378a4174, type: 3}
+    - target: {fileID: 940384471378842813, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 940384471378842813, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.46875
+      objectReference: {fileID: 0}
     - target: {fileID: 1678262759258172670, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
       propertyPath: player
       value: 
@@ -1473,6 +1493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MugCup
       objectReference: {fileID: 0}
+    - target: {fileID: 6139524400908158842, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 28abaec0b7e63a74b97f26ee0ddeda53, type: 2}
     - target: {fileID: 8382624846038360105, guid: 605fedc7f956c144e8aa6abf1e267d62, type: 3}
       propertyPath: m_Camera
       value: 

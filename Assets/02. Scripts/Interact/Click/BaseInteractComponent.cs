@@ -14,7 +14,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     [SerializeField] Image durabilityGauge;
 
     [Header("Component")]
-    Animator animator;
+    protected Animator animator;
 
     [Header("Value")]
     int maxDurability;
@@ -39,7 +39,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
     protected virtual void Awake()
     {
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         SetObjectStat();
 
         durability = maxDurability;

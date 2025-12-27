@@ -45,5 +45,6 @@ public class MugCupComponent : BaseInteractComponent
         }
 
         transform.position = end;
+        animator.SetTrigger("broken");
     }
 }
