@@ -22,7 +22,8 @@ public class CatMove : MonoBehaviour
     private Vector3 visualOriginalPos;    // �̹����� ó�� ���� ��ġ
 
     [Header("Water Step")]
-    [SerializeField] float waterStepOffSetDistance = 2f;
+    [SerializeField] float waterStepOffSetDistance = 5f;
+    bool isWaterStep;
     bool onWaterStep;
     Vector2 startWaterStep;
 
@@ -47,6 +48,7 @@ public class CatMove : MonoBehaviour
         }
 
         startWaterStep = transform.position;
+
     }
 
     void Update()
@@ -67,18 +69,23 @@ public class CatMove : MonoBehaviour
             }
         }
 
-        if(onWaterStep && isGrounded)
+        if(onWaterStep && isGrounded && !isWaterStep)
         {
-            WaterSteop();
+            isWaterStep = true;
+            WaterStep();
         }
     }
 
-    void WaterSteop()
+    void WaterStep()
     {
         // TODO : Water Steop
         if (waterStepOffSetDistance 
             <= (startWaterStep - (Vector2)transform.position).magnitude)
-            Instantiate(Resources.Load<GameObject>(""), transform);
+        {
+            startWaterStep = transform.position;
+            Instantiate(Resources.Load<GameObject>("Effect/ObjectEffect"), transform.position, Quaternion.identity);
+            isWaterStep = false;
+        }
     }
 
     void FixedUpdate()

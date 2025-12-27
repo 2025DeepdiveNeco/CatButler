@@ -6,6 +6,7 @@ public class BaseTriggerComponent : MonoBehaviour, ITriggerable
     [Header("Time")]
     [SerializeField] float duration = 10000f;
     float elapsed = 0;
+    bool isTrigger;
 
 
     public event Action EndTriggerAction;
@@ -16,7 +17,14 @@ public class BaseTriggerComponent : MonoBehaviour, ITriggerable
             OffTrigger();
     }
 
-    void OnTriggerEnter2D(Collider2D collision) => OnTrigger(collision);
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (isTrigger)
+            return;
+
+        isTrigger = true;
+         OnTrigger(collision);
+    }
 
     protected virtual void OnTrigger(Collider2D collision)
     {

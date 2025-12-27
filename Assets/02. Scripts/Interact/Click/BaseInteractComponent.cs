@@ -57,6 +57,8 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
     void SetObjectStat()
     {
+        if (DataTableManager.Instance.GetObjectData(objectID) == null)
+            return;
         var objectData = DataTableManager.Instance.GetObjectData(objectID);
 
         maxDurability = objectData.MaxDurability;
