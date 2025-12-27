@@ -12,7 +12,7 @@ public class UISpriteAnimator : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
         if (timer >= frameRate)
         {
             timer -= frameRate;
