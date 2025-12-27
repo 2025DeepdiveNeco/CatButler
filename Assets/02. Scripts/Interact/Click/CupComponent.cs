@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MugCupComponent : BaseInteractComponent
+public class CupComponent : BaseInteractComponent
 {
     public float pushDistance = 2f;
     public float pushSpeed = 5f;

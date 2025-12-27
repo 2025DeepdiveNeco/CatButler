@@ -24,6 +24,8 @@ public interface ITouchable
     bool UnTouchable();
 }
 
+public interface ITriggerable { }
+
 
 public interface IInteractInput { void TryInteract(); }
 public interface IInteractStay { void HoldInteract(); }

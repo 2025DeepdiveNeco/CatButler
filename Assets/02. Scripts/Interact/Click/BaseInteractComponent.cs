@@ -18,7 +18,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
 
     [Header("Value")]
     int maxDurability;
-    int durability;
+    protected int durability;
     int breakLevels;
     int score;
     bool interactEnd;
@@ -101,7 +101,7 @@ public class BaseInteractComponent : BaseInteract, IInteractable, IDurability
         ReduceDurability(damage);
     }
 
-    void ReduceDurability(int value)
+    protected virtual void ReduceDurability(int value)
     {
         durability -= value;
 

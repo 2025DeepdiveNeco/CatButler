@@ -82,7 +82,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     }
 
     // 게임 종료 판정
-    void CheckGameOver()
+    public void CheckGameOver()
     {
         isGameOver = true;
         Time.timeScale = 0f; // 게임 일시정지
