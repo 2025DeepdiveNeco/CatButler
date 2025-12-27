@@ -28,6 +28,7 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
     [SerializeField] float frequency = 20f;    // Èçµé¸² ¼Óµµ
     [SerializeField] float damping = 5f;       // °¨¼è ¼Óµµ
     [SerializeField] float duration = 0.5f;    // Èçµé¸®´Â ½Ã°£
+    protected bool isDamping;
 
     public ScoreTriggerType TriggerType => triggerType;
     public int Durability => durability;
@@ -107,12 +108,14 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
 
         if (triggerType == ScoreTriggerType.OnHit)
             GameManager.Instance.AddScore(score);
-        else if(triggerType == ScoreTriggerType.OnDestroy && durability <= 0)
+        else if (triggerType == ScoreTriggerType.OnDestroy && durability <= 0)
             GameManager.Instance.AddScore(score);
     }
 
     System.Collections.IEnumerator Damping()
     {
+        isDamping = true;
+
         float t = 0f;
 
         while (t < duration)
@@ -126,8 +129,8 @@ public class BaseInteractComponent : MonoBehaviour, IInteractable, IDurability
             yield return null;
         }
 
-        //if(durability > 0)
-        //    transform.localPosition = Vector3.zero;
+        transform.localPosition = Vector3.zero;
+        isDamping = false;
 
         ExitInteract();
     }

@@ -21,9 +21,16 @@ public class MugCupComponent : BaseInteractComponent
         OnInteractEnd -= StartPush;
     }
 
-    void StartPush() => StartCoroutine(Push());
+    void StartPush()
+    {
+
+        StopAllCoroutines();
+        StartCoroutine(Push());
+    }
+
     System.Collections.IEnumerator Push()
     {
+
         Vector2 start = transform.position;
 
         Vector2 dir = ((Vector2)transform.position - (Vector2)player.transform.position).normalized;
@@ -36,5 +43,7 @@ public class MugCupComponent : BaseInteractComponent
             transform.position = Vector2.Lerp(start, end, t);
             yield return null;
         }
+
+        transform.position = end;
     }
 }

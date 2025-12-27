@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4487187197605831442}
   - component: {fileID: 692875807188545546}
   - component: {fileID: 4269095257464457858}
+  - component: {fileID: 8907348986142261000}
   m_Layer: 8
   m_Name: Cat
   m_TagString: Player
@@ -172,6 +173,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CatActionController
   moveSpeed: 5
   comboWindow: 0.5
+--- !u!114 &8907348986142261000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757362599979097797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09de0750e9d1ca4cbce7e0d66ced770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MouseInteractSystem
+  interactRadius: 3
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  HoldLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  drawGizmo: 1
 --- !u!1 &8698391910047982951
 GameObject:
   m_ObjectHideFlags: 0
